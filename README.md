@@ -44,11 +44,15 @@ This hook manages recording from the user's camera and/or microphone.
 ### Example Usage
 
 ```jsx
-import React from 'react';
+import React , { useEffect } from 'react';
 import { useRecord } from 'react-device-permission';
 
 const App = () => {
-  const { startRecording, stopRecording, recordSrc, fileNameWithExtension } = useRecord('video', 'my-video');
+  const { startRecording, stopRecording, recordSrc, fileNameWithExtension , errors } = useRecord('video', 'my-video');
+
+  useEffect(()=>{
+    console.log(errors)
+  },[errors]);
 
   return (
     <div>
