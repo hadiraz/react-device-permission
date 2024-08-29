@@ -1,6 +1,6 @@
 {
   "name": "react-device-permission",
-  "version": "1.0.5",
+  "version": "1.2.0",
   "description": "A collection of React hooks for handling device permissions like camera,microphone and etc.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -18,7 +18,7 @@
     "webcam",
     "microphone"
   ],
-  "author": "Hadi raziei-hadiraziei1@gmail.com",
+  "author": "Hadi raziei - hadiraziei1@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",

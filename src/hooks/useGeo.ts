@@ -5,8 +5,9 @@ const useGeo = (geoType: T_GeoType = 'watch', geoOptions?: T_GeoOptions, throttl
   const options: T_GeoOptions = {
     enableHighAccuracy: false,
     timeout: 5000,
+    // maximumAge : 1000
   };
-  const mergedOptions = { ...options, ...geoOptions };
+  const mergedOptions = useRef<T_GeoOptions>({...options , ...geoOptions});
 
   const [coords, setCoords] = useState<T_GeoPositionCoords>({
     accuracy: 0,
@@ -55,7 +56,7 @@ const useGeo = (geoType: T_GeoType = 'watch', geoOptions?: T_GeoOptions, throttl
         setTimeout(() => { inThrottleStatus.current = false }, throttleEditedLimit)
       }
     }
-  }, [geoType, mergedOptions.enableHighAccuracy, mergedOptions.maximumAge, mergedOptions.timeout]);
+  }, [geoType, mergedOptions.current.enableHighAccuracy, mergedOptions.current.maximumAge, mergedOptions.current.timeout]);
 
   const errorGeo = useCallback((err: T_GeoErrors) => {
     setErrors({ code: err.code, message: err.message });
@@ -70,17 +71,17 @@ const useGeo = (geoType: T_GeoType = 'watch', geoOptions?: T_GeoOptions, throttl
   useEffect(() => {
     if (navigator.geolocation) {
       if (geoType === 'current') {
-        navigator.geolocation.getCurrentPosition(successGeo, errorGeo, mergedOptions);
+        navigator.geolocation.getCurrentPosition(successGeo, errorGeo, mergedOptions.current);
       }
       if (geoType === 'watch') {
-        const watchId = navigator.geolocation.watchPosition(successGeo, errorGeo, mergedOptions);
+        const watchId = navigator.geolocation.watchPosition(successGeo, errorGeo, mergedOptions.current);
         watchGeo.current = watchId;
         return () => { clearWatchGeo(); };
       }
     } else {
       setErrors({ message: 'This device does not support GPS!' });
     }
-  }, [geoType, mergedOptions.enableHighAccuracy, mergedOptions.maximumAge, mergedOptions.timeout]);
+  }, [geoType, mergedOptions.current]);
 
   return {
     coords,
