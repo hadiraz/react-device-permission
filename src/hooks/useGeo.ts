@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { T_GeoErrors, T_GeoOptions, T_GeoPosition, T_GeoPositionCoords, T_GeoType } from '../types/types';
 
-const useGeo = (geoType: T_GeoType = 'watch', geoOptions?: T_GeoOptions, throttleLimit?: number) => {
+const useGeo = (geoType: T_GeoType = 'current', geoOptions?: T_GeoOptions, throttleLimit?: number) => {
   const options: T_GeoOptions = {
     enableHighAccuracy: false,
     timeout: 5000,
-    // maximumAge : 1000
   };
   const mergedOptions = useRef<T_GeoOptions>({...options , ...geoOptions});
 
