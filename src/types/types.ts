@@ -93,3 +93,28 @@ export type T_PermissionRecord<T extends T_StreamTypeProp> = {
     streamType: T,
 
 }
+export type T_GeoOptions = {
+    enableHighAccuracy?: boolean;
+    timeout?: number;
+    maximumAge?: number;
+  };
+  
+  export type T_GeoPositionCoords = {
+    accuracy: number;
+    altitude: number | null;
+    altitudeAccuracy: number | null;
+    heading: number | null;
+    latitude: number;
+    longitude: number;
+    speed: number | null;
+  };
+  
+  export type T_GeoPositionTimestamp = number;
+  export type T_GeoPosition = { coords: T_GeoPositionCoords; timestamp: T_GeoPositionTimestamp };
+  
+  export type T_GeoErrors = {
+    code?: number;
+    message: string;
+  };
+  
+  export type T_GeoType = 'watch' | 'current';
